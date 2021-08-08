@@ -1,5 +1,5 @@
-# Conways_game_of_life
-As a fun little project to waste some time and continue my programming over the summer break I began this project to create a conways game of life in python using pygame.
+# Conways Game of Life
+As a fun little project to waste some time and continue my programming over the summer break I began this project to create a Conway's Game of Life in python using pygame.
 Conway's Game of Life is a cellular automaton. it consists of cells, which using only a couple simple mathematical rules can come to life, die, and propegate depending on starting conditions.
 The rules of this game are:
 1. If a cell has one or fewer neighbors who are alive it dies
@@ -117,5 +117,39 @@ for col in range(0, totalColums + 1):
         fatList.append(newCell) # add cell to row
 ```
 this loop uses the known number of columns and rows to loop over and create the map which consists of a list of lists. First the cells are created and then added to a temporary list called fatList which represents a row on the map, once the number of cells in this temporary list is equal to the number of columns on the map the whole temp list is added to another list called cellMap which is the main structure which is used to refer to and access cells in the main. 
+
+#### Gathering Data on Cell Neighbors
+```python
+for row in cellMap:
+    for cell in row:
+        cell.getNeighbor(cell.row, cell.column, totalRows-1, totalColums-1, cellMap)
+```
+This just quickly runs through the map and gathers the data for each cells neighbor attribute used later in the code, run before the main game loop.
+
+#### Game Loop
+```python
+while True:
+    for item in cellMap:
+        for currentcell in item:
+            currentcell.drawNode()
+            drawLines(window, Grey, totalRows, totalColums, lineThickness, cellThickness, Width, Height)
+            currentcell.updateFriends()
+            currentcell.getFriends()
+    useDN(cellMap)
+    pygame.display.update()
+```
+The whole game loop can be seen here, first looping over the entire map checking all cells and updating any cell's attributes if they need to be, then drawing the lines between the cells . After this loop the useDN function is called and actually updates all of the cell alive states at once.
+
+## Downsides
+- As the game map is generated as a list of lists and rendering is done by looping through this list increasing map sizes leads to very rapidly increasing the time between each update. using a screen width of 1000 (what is being used in the gif above) is a good compramise between map size and speed as the time between each update is not that slow
+- Cells cannot yet be updated dynamically and must be pre-configured before running, in a future visit to this project I may take on the task of adding user interaction in the form of pausing and updating cells in run-time. (example of cells being brought to life before run time below)
+```python
+cellMap[10][11].makeAlive()
+cellMap[11][12].makeAlive()
+cellMap[12][10].makeAlive()
+cellMap[12][11].makeAlive()
+cellMap[12][12].makeAlive()
+```
+makes the configuration seen in the gif
 
 I got all of my information for the explaination of the game from this [site](https://playgameoflife.com/) that lets you play with this simulation and does it significantly better than I have
