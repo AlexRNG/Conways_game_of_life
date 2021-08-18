@@ -152,4 +152,7 @@ cellMap[12][12].makeAlive()
 ```
 makes the configuration seen in the gif
 
+### Other interesting configurations
+![](gif2.gif)
+
 I got all of my information for the explaination of the game from this [site](https://playgameoflife.com/) that lets you play with this simulation and does it significantly better than I have
