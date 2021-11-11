@@ -78,14 +78,14 @@ def useDN(cellMap):
     for row in cellMap:
         for cell in row:
             if (len(cell.friends)) >= 1:
-            if cell.alive == True:
-                if len(cell.friends) >= 4:
-                    cell.makeDead()
-                if len(cell.friends) < 2:
-                    cell.makeDead()
-            if cell.alive == False:
-                if len(cell.friends) == 3:
-                    cell.makeAlive()
+                    if cell.alive == True:
+                        if len(cell.friends) >= 4:
+                            cell.makeDead()
+                        if len(cell.friends) < 2:
+                            cell.makeDead()
+                    if cell.alive == False:
+                        if len(cell.friends) == 3:
+                            cell.makeAlive()
 ```
 This is the function that is actually checking the friends list and updating the cell's alive attribute acordingly. This is where the rules of Conway's Game of Life are implemented 
 
